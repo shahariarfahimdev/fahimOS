@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fahim OS</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand-nav">
+          <button id="homeButton" class="brand-logo-button" type="button" aria-label="Go to Home" title="Home">
+            <img src="assets/fahim-os-logo.svg" alt="Fahim OS">
+          </button>
+          <button id="backButton" class="back-arrow-btn" type="button" aria-label="Go back" title="Back" hidden>←</button>
+        </div>
+        <div class="header-actions">
+          <button id="motivationQuickButton" class="motivation-quick-btn" type="button">Motivation</button>
+          <button id="pageChooser" class="page-chooser" type="button">Command Menu</button>
+          <div class="save-control-cluster" aria-label="Save controls">
+            <button id="savePage" class="header-icon-btn" type="button" aria-label="Save current page as PDF" title="Save current page as PDF">
+              <span aria-hidden="true">PDF</span>
+            </button>
+            <button id="autoSaveToggle" class="ghost-btn compact-action" type="button" title="Toggle auto-save">Auto-save On</button>
+          </div>
+          <label class="color-pencil-control header-color-control" title="Background color">
+            <span class="color-pencil-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            <input id="quickBackground" type="color" aria-label="Choose background color">
+          </label>
+        </div>
+      </header>
+
+      <div id="pageLauncher" class="launcher" hidden>
+        <div class="launcher-panel">
+          <div class="launcher-head">
+            <div>
+              <p class="eyebrow">Command menu</p>
+              <h2>Where do you want to go?</h2>
+            </div>
+            <button id="closeLauncher" class="icon-btn" type="button" aria-label="Close">x</button>
+          </div>
+          <nav class="tabs" aria-label="Planner pages">
+            <button class="tab is-active" data-tab="dashboard" id="dayTab">Home</button>
+            <button class="tab" data-tab="money">Money Hub</button>
+            <button class="tab" data-tab="health">Health Hub</button>
+            <button class="tab" data-tab="study">Study Hub</button>
+            <button class="tab" data-tab="faith">Faith Hub</button>
+            <button class="tab" data-tab="life">Life Hub</button>
+            <button class="tab" data-tab="history">History</button>
+            <button class="tab" data-tab="settings">Settings</button>
+          </nav>
+        </div>
+      </div>
+
+      <aside id="assistantDrawer" class="assistant-drawer" hidden>
+        <div class="assistant-panel">
+          <div class="assistant-head">
+            <div>
+              <p class="eyebrow">Command assistant</p>
+              <h2>Tell it what to create.</h2>
+            </div>
+            <button id="closeAssistant" class="icon-btn" type="button" aria-label="Close assistant">x</button>
+          </div>
+          <div class="assistant-examples">
+            <button class="ghost-btn compact-action assistant-example" type="button">Add class Java Programming Monday Wednesday 9:00 AM room B12 teacher Khan</button>
+            <button class="ghost-btn compact-action assistant-example" type="button">Add assignment Java project due 2026-06-10 18:00 class Java priority high</button>
+            <button class="ghost-btn compact-action assistant-example" type="button">Add task finish portfolio due 2026-06-07 note push to GitHub</button>
+            <button class="ghost-btn compact-action assistant-example" type="button">Add reminder pay phone bill tomorrow 8:00 PM</button>
+          </div>
+          <label class="assistant-input-label">
+            <span>Command</span>
+            <textarea id="assistantCommand" rows="4" placeholder="Example: add class Biology Tuesday Thursday 11:00 AM room 203 teacher Ahmed"></textarea>
+          </label>
+          <div class="resource-links">
+            <button id="runAssistantCommand" class="primary-btn" type="button">Run Command</button>
+            <button id="clearAssistantCommand" class="ghost-btn" type="button">Clear</button>
+          </div>
+          <div id="assistantResult" class="assistant-result status-list"></div>
+        </div>
+      </aside>
+
+      <button id="assistantToggle" class="assistant-toggle-btn floating-assistant-btn" type="button" aria-label="Open GPT Assistant" title="GPT Assistant">
+        <span aria-hidden="true">AI</span>
+        <strong>GPT Assistant</strong>
+      </button>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="topbar-greeting">HI SHAHARIAR</p>
+            <h2 id="pageTitle">Today</h2>
+          </div>
+          <div class="quick-theme">
+            <button id="softMode" class="ghost-btn" type="button">Soft</button>
+            <button id="focusMode" class="ghost-btn" type="button">Focus</button>
+            <button id="editHomeLayout" class="layout-toggle" type="button" aria-label="Edit page layout" title="Edit page layout">
+              <span class="layout-grid-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </button>
+          </div>
+        </header>
+
+        <section id="motivation" class="panel">
+          <div class="hero motivation-landing">
+            <div>
+              <p class="eyebrow">Motivation command page</p>
+              <h2>Fuel your mindset without wasting the day.</h2>
+              <p>Refresh your motivation, reset your mentality, and pick something strong to read, watch, hear, or study.</p>
+            </div>
+            <div class="date-card">
+              <button id="motivationPageRefresh" class="journal-action" type="button">
+                <span>Refresh</span>
+                <strong>New Motivation</strong>
+              </button>
+            </div>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card motivation-focus-card">
+              <div class="suite-heading">
+                <h3>Motivation</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="motivation" type="button">Refresh</button>
+              </div>
+              <p id="motivationPageText" class="large-note"></p>
+            </article>
+            <article class="card lesson-card motivation-focus-card">
+              <div class="suite-heading">
+                <h3>Mindset Principle</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="mindset" type="button">Refresh</button>
+              </div>
+              <p id="motivationPageMindset" class="large-note"></p>
+            </article>
+            <article class="card lesson-card motivation-focus-card">
+              <div class="suite-heading">
+                <h3>Famous People Quote</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="famous" type="button">Refresh</button>
+              </div>
+              <p id="motivationPageFamous" class="large-note"></p>
+            </article>
+            <article class="card lesson-card motivation-focus-card">
+              <div class="suite-heading">
+                <h3>Islamic Reminder</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="islamic" type="button">Refresh</button>
+              </div>
+              <p id="motivationPageIslamic" class="large-note"></p>
+            </article>
+            <article class="card lesson-card motivation-focus-card power-laws-card">
+              <div class="suite-heading">
+                <h3>Power Laws</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="power" type="button">Refresh</button>
+              </div>
+              <p class="muted">Use these as self-control and strategy reminders, not manipulation.</p>
+              <div id="motivationPowerLaws" class="status-list"></div>
+            </article>
+          </div>
+          <div class="motivation-recommendation-grid">
+            <article class="card recommendation-card">
+              <div class="suite-heading">
+                <h3>Books To Read</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="books" type="button">Refresh</button>
+              </div>
+              <div id="bookRecommendations"></div>
+            </article>
+            <article class="card recommendation-card">
+              <div class="suite-heading">
+                <h3>Movies To Watch</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="movies" type="button">Refresh</button>
+              </div>
+              <div id="movieRecommendations"></div>
+            </article>
+            <article class="card recommendation-card">
+              <div class="suite-heading">
+                <h3>Songs To Listen To</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="songs" type="button">Refresh</button>
+              </div>
+              <div id="songRecommendations"></div>
+            </article>
+            <article class="card recommendation-card">
+              <div class="suite-heading">
+                <h3>Podcasts To Listen To</h3>
+                <button class="ghost-btn compact-action motivation-refresh" data-refresh-motivation="podcasts" type="button">Refresh</button>
+              </div>
+              <div id="podcastRecommendations"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="dashboard" class="panel is-visible">
+          <div class="hero">
+            <div>
+              <p class="eyebrow" id="homeDayLabel">Personal command page</p>
+              <h2 id="dashboardGreeting">Build the day with intention.</h2>
+              <p id="motivationText"></p>
+            </div>
+            <div class="date-card">
+              <label for="activeDate">Active date</label>
+              <input id="activeDate" type="date">
+              <div id="digitalClock" class="digital-clock" role="button" tabindex="0" aria-label="Open analog clock" title="Open analog clock" aria-live="polite">
+                <span>Live Clock</span>
+                <strong id="digitalClockTime">--:--:--</strong>
+                <small id="digitalClockPeriod"></small>
+              </div>
+            </div>
+          </div>
+          <div class="future-widget-strip">
+            <article class="future-widget signal-widget" data-signal="weather" role="button" tabindex="0" title="Open weather details">
+              <div>
+                <p>Weather Pulse</p>
+                <h3>Live Conditions</h3>
+              </div>
+              <div id="homeWeather" class="status-list"></div>
+              <div class="resource-links">
+                <button id="refreshWeather" class="ghost-btn compact-action" type="button">Refresh</button>
+                <button id="openWeatherMore" class="primary-btn compact-action" type="button">More Updates</button>
+              </div>
+            </article>
+            <article class="future-widget signal-widget" data-signal="news" role="button" tabindex="0" title="Open news details">
+              <div>
+                <p>News Signal</p>
+                <h3>World + US</h3>
+              </div>
+              <div id="homeNews" class="status-list"></div>
+              <div class="resource-links">
+                <button id="refreshNews" class="ghost-btn compact-action" type="button">Refresh</button>
+                <button id="openNewsMore" class="primary-btn compact-action" type="button">More Updates</button>
+              </div>
+            </article>
+            <article class="future-widget signal-widget" data-signal="stocks" role="button" tabindex="0" title="Open market details">
+              <div>
+                <p>Market Signal</p>
+                <h3>Market Pulse</h3>
+              </div>
+              <div id="homeStocks" class="status-list"></div>
+              <div class="resource-links">
+                <button id="refreshStocks" class="ghost-btn compact-action" type="button">Refresh</button>
+                <button id="openStocksMore" class="primary-btn compact-action" type="button">More Updates</button>
+              </div>
+            </article>
+          </div>
+          <div class="home-collapse-mini-bar">
+            <span>Front page tabs</span>
+            <button id="expandHomeCards" class="ghost-btn compact-action" type="button">Expand All</button>
+            <button id="collapseHomeCards" class="primary-btn compact-action" type="button">Collapse All</button>
+          </div>
+          <div id="homeCards" class="grid three home-card-grid">
+            <article class="card" data-home-card="overview">
+              <h3>Today At A Glance</h3>
+              <div id="homeOverview" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="top3">
+              <h3>Top 3</h3>
+              <div id="topThree" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="prayer">
+              <h3>Prayer Snapshot</h3>
+              <div id="prayerSnapshot" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="school">
+              <h3>School + Tasks</h3>
+              <div id="homeSchoolTasks" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="money">
+              <h3>Money + Bills</h3>
+              <div id="homeMoneyBills" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="latestNotes">
+              <h3>Latest Notes</h3>
+              <div id="homeNotesFeed" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="sleep">
+              <h3>Sleep Summary</h3>
+              <div id="homeSleepSummary" class="status-list"></div>
+            </article>
+            <article class="card" data-home-card="workout">
+              <h3>Workout Coach</h3>
+              <div id="homeWorkoutCoach" class="status-list"></div>
+              <button class="hub-link primary-btn" data-open-tab="workout" type="button">Open Workout Coach</button>
+            </article>
+            <article class="card" data-home-card="discipline">
+              <h3>Discipline Streak</h3>
+              <div id="homeDisciplineStreak" class="status-list"></div>
+              <button class="hub-link primary-btn" data-open-tab="discipline" type="button">Open Discipline Streak</button>
+            </article>
+            <article class="card" data-home-card="checklist">
+              <h3>Daily Checklist</h3>
+              <div id="dailyChecklist" class="status-list"></div>
+            </article>
+            <article class="card clickable-card" data-home-card="notes" id="homeNotesCard">
+              <h3>Notes</h3>
+              <p id="dailyNotesDisplay" class="large-note">No notes yet.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="daily" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Forever daily system</p>
+              <h2>Half-Hour Schedule</h2>
+            </div>
+            <button id="clearSchedule" class="danger-btn" type="button">Clear Day</button>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Daily Focus</h3>
+              <div id="topThreeEditor"></div>
+              <h3>Checklist</h3>
+              <div id="dailyChecklistEditor"></div>
+              <button id="addChecklist" class="primary-btn" type="button">Add Checklist Item</button>
+            </article>
+            <article class="card">
+              <h3>Daily Notes</h3>
+              <textarea id="dailyNotes" rows="10" placeholder="Brain dump, reminders, reflections..."></textarea>
+            </article>
+          </div>
+          <div id="scheduleGrid" class="schedule-grid"></div>
+        </section>
+
+        <section id="tasks" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Big work</p>
+              <h2>Tasks</h2>
+            </div>
+            <button id="addTask" class="primary-btn" type="button">Add Task</button>
+          </div>
+          <div id="taskBoard" class="grid three"></div>
+        </section>
+
+        <section id="todos" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Simple lists</p>
+              <h2>To-Do Lists</h2>
+            </div>
+            <button id="addTodoList" class="primary-btn" type="button">Add List</button>
+          </div>
+          <div id="todoLists" class="grid three"></div>
+        </section>
+
+        <section id="alarms" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Browser reminders</p>
+              <h2>Alarms</h2>
+            </div>
+            <button id="addAlarm" class="primary-btn" type="button">Add Alarm</button>
+          </div>
+          <p class="muted">Alarms work while this page is open. Keep the planner open for reminders.</p>
+          <div id="alarmList" class="grid two"></div>
+        </section>
+
+        <section id="countdown" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Deadlines and goals</p>
+              <h2>Countdowns</h2>
+            </div>
+            <button id="addCountdown" class="primary-btn" type="button">Add Countdown</button>
+          </div>
+          <div id="countdownList" class="grid three"></div>
+        </section>
+
+        <section id="prayer" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Five prayers</p>
+              <h2>Prayer Tracker</h2>
+            </div>
+            <button id="resetPrayers" class="ghost-btn" type="button">Reset Today</button>
+          </div>
+          <div id="prayerCards" class="grid five"></div>
+          <article class="card">
+            <h3>Prayer Reflection</h3>
+            <textarea id="prayerReflection" rows="7" placeholder="What helped you stay consistent today?"></textarea>
+          </article>
+        </section>
+
+        <section id="quran" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Reading and reflection</p>
+              <h2>Quran Teacher</h2>
+            </div>
+            <button id="newVerse" class="primary-btn" type="button">New Verse</button>
+          </div>
+          <div class="grid two">
+            <article class="card verse-card">
+              <h3>Verse Focus</h3>
+              <p id="verseArabic" class="arabic"></p>
+              <p id="verseEnglish" class="verse-text"></p>
+              <p id="verseRef" class="muted"></p>
+            </article>
+            <article class="card">
+              <h3>Reading Log</h3>
+              <div class="form-grid">
+                <label>Surah<input id="quranSurah" type="text" placeholder="Al-Kahf"></label>
+                <label>Ayah range<input id="quranAyah" type="text" placeholder="1-10"></label>
+                <label>Minutes<input id="quranMinutes" type="number" min="0" placeholder="20"></label>
+              </div>
+              <textarea id="quranReflection" rows="6" placeholder="Reflection or lesson..."></textarea>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card">
+              <h3>Full Quran Study Library</h3>
+              <label>Choose Surah<select id="surahSelect"></select></label>
+              <div id="surahStudy" class="study-panel"></div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Daily Quran Teacher</h3>
+              <div id="quranTeacherSteps"></div>
+              <div class="resource-links">
+                <a id="quranComLink" class="primary-btn" href="#" target="_blank" rel="noreferrer">Open Arabic + English</a>
+                <a id="quranVideoLink" class="ghost-btn" href="#" target="_blank" rel="noreferrer">YouTube Explanation</a>
+              </div>
+            </article>
+          </div>
+          <div class="grid three lesson-grid">
+            <article class="card lesson-card">
+              <h3>How To Study A Verse</h3>
+              <ol>
+                <li>Read the Arabic slowly, even if you are still learning.</li>
+                <li>Read the translation and underline the main command, promise, or warning.</li>
+                <li>Ask: what does Allah want me to remember or change today?</li>
+                <li>Write one action you can do before sleeping.</li>
+              </ol>
+            </article>
+            <article class="card lesson-card">
+              <h3>Beginner Quran Roadmap</h3>
+              <ol>
+                <li>Daily: 5-10 minutes recitation practice.</li>
+                <li>Daily: 1 verse translation and reflection.</li>
+                <li>Weekly: memorize one short surah or 3-5 ayat.</li>
+                <li>Monthly: review older memorization so it stays strong.</li>
+              </ol>
+            </article>
+            <article class="card lesson-card">
+              <h3>Reflection Prompts</h3>
+              <ul>
+                <li>What quality of Allah does this verse show?</li>
+                <li>What habit should I fix because of this verse?</li>
+                <li>How can this verse help my school, family, and discipline?</li>
+                <li>What dua connects to this verse?</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="java" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Complete beginner to project-ready path</p>
+              <h2>Complete Java Learning</h2>
+            </div>
+            <button id="addJavaNote" class="primary-btn" type="button">Add Java Note</button>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card">
+              <h3>Course Modules</h3>
+              <div id="javaModuleList" class="module-list"></div>
+            </article>
+            <article class="card code-card">
+              <h3 id="javaLessonTitle">Lesson</h3>
+              <div id="javaLessonBody"></div>
+              <pre><code id="javaLessonCode"></code></pre>
+              <div class="resource-links">
+                <a id="javaDocsLink" class="primary-btn" href="https://docs.oracle.com/en/java/" target="_blank" rel="noreferrer">Official Java Docs</a>
+                <a id="javaVideoLink" class="ghost-btn" href="#" target="_blank" rel="noreferrer">YouTube Lesson</a>
+              </div>
+            </article>
+          </div>
+          <div class="grid three">
+            <article class="card lesson-card">
+              <h3>Practice Drill</h3>
+              <p id="javaPractice"></p>
+            </article>
+            <article class="card lesson-card">
+              <h3>Mini Project</h3>
+              <p id="javaProject"></p>
+            </article>
+            <article class="card">
+              <h3>My Java Notes</h3>
+              <div id="javaNotes"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="maps" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Places and directions</p>
+              <h2>Google Maps</h2>
+            </div>
+            <button id="openMapSearch" class="primary-btn" type="button">Search Map</button>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Find A Place</h3>
+              <label>Place or address<input id="mapQuery" type="text" placeholder="Library, gym, school, mosque..."></label>
+              <p class="muted">Searches open inside the map preview and can also be opened in Google Maps.</p>
+              <a id="externalMapLink" class="ghost-btn" href="https://www.google.com/maps" target="_blank" rel="noreferrer">Open in Google Maps</a>
+            </article>
+            <article class="card file-viewer">
+              <h3>Map Preview</h3>
+              <iframe id="mapFrame" title="Google Maps preview" src="https://www.google.com/maps?q=New%20York%20Public%20Library&output=embed"></iframe>
+            </article>
+          </div>
+        </section>
+
+        <section id="discipline" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Self-control tracker</p>
+              <h2>Discipline Streak</h2>
+            </div>
+            <button id="resetDiscipline" class="danger-btn" type="button">Reset Streak</button>
+          </div>
+          <div class="hero discipline-hero">
+            <div>
+              <p class="eyebrow">Current streak</p>
+              <h2 id="disciplineTimer">0 days</h2>
+              <p id="disciplineStarted">Start today and protect your focus.</p>
+            </div>
+            <div class="date-card">
+              <button id="startDiscipline" class="primary-btn" type="button">Start / Restart Now</button>
+              <label>Reason<textarea id="disciplineReason" rows="5" placeholder="Why am I choosing discipline?"></textarea></label>
+            </div>
+          </div>
+          <div class="grid three">
+            <article class="card lesson-card">
+              <h3>Emergency Plan</h3>
+              <ol>
+                <li>Stand up and leave the room for 2 minutes.</li>
+                <li>Make wudu, pray two rakah, or read one Quran page.</li>
+                <li>Put the phone away and do 20 push-ups or walk outside.</li>
+                <li>Write the trigger, then choose the next clean action.</li>
+              </ol>
+            </article>
+            <article class="card lesson-card">
+              <h3>Trigger Notes</h3>
+              <div id="triggerNotes"></div>
+              <button id="addTriggerNote" class="ghost-btn" type="button">Add Trigger</button>
+            </article>
+            <article class="card lesson-card">
+              <h3>Why It Matters</h3>
+              <p>Protecting your attention protects your prayer, study, confidence, sleep, and future relationships. The goal is not shame. The goal is control, tawbah, and rebuilding stronger habits.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="suggestions" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Daily recommendations</p>
+              <h2>Suggestions</h2>
+            </div>
+            <button id="refreshSuggestions" class="primary-btn" type="button">Refresh Ideas</button>
+          </div>
+          <div class="grid three">
+            <article class="card"><h3>Today</h3><ul id="todaySuggestions"></ul></article>
+            <article class="card"><h3>Study</h3><ul id="studySuggestions"></ul></article>
+            <article class="card"><h3>Life Balance</h3><ul id="lifeSuggestions"></ul></article>
+          </div>
+        </section>
+
+        <section id="money" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Bills, credit, cashflow</p>
+              <h2>Money Hub</h2>
+            </div>
+            <button id="addMoneyRow" class="primary-btn" type="button">Add Transaction</button>
+          </div>
+          <div class="hub-strip">
+            <button class="hub-link primary-btn" data-open-tab="bills" type="button">Monthly Bills</button>
+            <a class="ghost-btn" href="https://www.creditkarma.com/" target="_blank" rel="noreferrer">Credit Karma</a>
+            <a class="ghost-btn" href="https://www.annualcreditreport.com/" target="_blank" rel="noreferrer">Annual Credit Report</a>
+          </div>
+          <div class="stats">
+            <div><span id="incomeTotal">$0</span><small>Income</small></div>
+            <div><span id="expenseTotal">$0</span><small>Expenses</small></div>
+            <div><span id="balanceTotal">$0</span><small>Balance</small></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th><th>Note</th><th></th></tr></thead>
+              <tbody id="moneyRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="bills" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Monthly fixed costs</p>
+              <h2>Monthly Bills</h2>
+            </div>
+            <button id="addBill" class="primary-btn" type="button">Add Bill</button>
+          </div>
+          <div class="stats">
+            <div><span id="billTotal">$0</span><small>Total monthly bills</small></div>
+            <div><span id="billPaid">$0</span><small>Paid this month</small></div>
+            <div><span id="billRemaining">$0</span><small>Remaining</small></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Paid</th><th>Bill</th><th>Amount</th><th>Due</th><th>Category</th><th>Note</th><th></th></tr></thead>
+              <tbody id="billRows"></tbody>
+            </table>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Bill Strategy Checklist</h3>
+              <div id="billChecklist"></div>
+              <button id="addBillChecklist" class="ghost-btn" type="button">Add Checklist Item</button>
+            </article>
+            <article class="card lesson-card">
+              <h3>Bill Strategy</h3>
+              <ol>
+                <li>Sort by closest due date first.</li>
+                <li>Pay essentials before subscriptions.</li>
+                <li>Mark paid immediately after payment.</li>
+                <li>Review credit cards weekly so minimums do not surprise you.</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <section id="calendar" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Calendar planning</p>
+              <h2>Google Calendar</h2>
+            </div>
+            <button id="openGoogleCalendar" class="primary-btn" type="button">Open Calendar</button>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Quick Add Event</h3>
+              <div class="form-grid">
+                <label>Title<input id="calTitle" type="text" placeholder="Study session"></label>
+                <label>Location<input id="calLocation" type="text" placeholder="Library"></label>
+                <label>Start<input id="calStart" type="datetime-local"></label>
+                <label>End<input id="calEnd" type="datetime-local"></label>
+              </div>
+              <label>Details<textarea id="calDetails" rows="5" placeholder="Notes, links, reminders..."></textarea></label>
+              <div class="resource-links">
+                <button id="createCalendarLink" class="primary-btn" type="button">Create Google Link</button>
+                <a id="calendarEventLink" class="ghost-btn" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noreferrer">Open Event Link</a>
+              </div>
+            </article>
+            <article class="card file-viewer">
+              <h3>Calendar</h3>
+              <iframe title="Google Calendar" src="https://calendar.google.com/calendar/embed"></iframe>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Bill Calendar</h3>
+              <p class="muted">Calculated from your Monthly Bills due values for the active month.</p>
+              <div id="billCalendarList" class="status-list"></div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Upcoming Bill Rules</h3>
+              <ol>
+                <li>Number due dates repeat every month.</li>
+                <li>Weekly bills show every 7 days in the month.</li>
+                <li>Biweekly bills show every 14 days in the month.</li>
+                <li>Paid bills still show as paid on Home and in the calendar list.</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <section id="github" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Publish files</p>
+              <h2>GitHub Upload</h2>
+            </div>
+            <button id="uploadGithubFile" class="primary-btn" type="button">Upload to GitHub</button>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Repository Target</h3>
+              <div class="form-grid">
+                <label>Owner<input id="ghOwner" type="text" placeholder="your-user-name"></label>
+                <label>Repository<input id="ghRepo" type="text" placeholder="life-command-center"></label>
+                <label>Branch<input id="ghBranch" type="text" placeholder="main"></label>
+                <label>Path in repo<input id="ghPath" type="text" placeholder="uploads/file.pdf"></label>
+              </div>
+              <label>GitHub token<input id="ghToken" type="password" placeholder="Fine-grained token with Contents write permission"></label>
+              <label>Commit message<input id="ghMessage" type="text" placeholder="Upload planner file"></label>
+              <label class="upload-btn">Choose File<input id="ghFile" type="file"></label>
+              <p class="muted">Your token is only used in this browser request. Do not publish it or commit it.</p>
+            </article>
+            <article class="card">
+              <h3>Status</h3>
+              <div id="githubStatus" class="large-note">Choose a file, enter repo details, then upload.</div>
+              <div class="resource-links">
+                <a class="ghost-btn" href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noreferrer">Create Token</a>
+                <a class="ghost-btn" href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages Help</a>
+                <a class="ghost-btn" href="github-upload.html" target="_blank" rel="noreferrer">Standalone Uploader</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="school" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Classes and assignments</p>
+              <h2>School Hub</h2>
+            </div>
+            <button id="addAssignment" class="primary-btn" type="button">Add Assignment</button>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Classes and Attendance</h3>
+              <div id="attendanceList"></div>
+              <button id="addClass" class="ghost-btn" type="button">Add Class</button>
+            </article>
+            <article class="card">
+              <h3>Assignments</h3>
+              <div id="assignmentList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="study" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">School, projects, full-stack path</p>
+              <h2>Study Hub</h2>
+            </div>
+            <div class="resource-links">
+              <button id="addStudyBlock" class="primary-btn" type="button">Add Study Block</button>
+              <button id="addAssignmentFromStudy" class="ghost-btn" type="button">Add Assignment</button>
+              <button id="addClassFromStudy" class="ghost-btn" type="button">Add Class</button>
+              <button id="addTaskFromStudy" class="ghost-btn" type="button">Add Task</button>
+            </div>
+          </div>
+          <div class="future-widget-strip study-future-strip compact-study-strip">
+            <article class="future-widget study-future-widget" data-open-tab="java">
+              <div>
+                <p>Learning Signal</p>
+                <h3>What To Learn Next</h3>
+              </div>
+              <div id="studyFutureNext" class="status-list"></div>
+            </article>
+            <article class="future-widget study-future-widget" data-open-tab="roadmap">
+              <div>
+                <p>Career Signal</p>
+                <h3>Developer Path</h3>
+              </div>
+              <div id="studyFutureCareer" class="status-list"></div>
+            </article>
+            <article class="future-widget study-future-widget" data-open-tab="java">
+              <div>
+                <p>Project Signal</p>
+                <h3>Build This</h3>
+              </div>
+              <div id="studyFutureProject" class="status-list"></div>
+            </article>
+          </div>
+          <div class="study-zone school-zone">
+            <div class="study-zone-head">
+              <div>
+                <p class="eyebrow">School command</p>
+                <h3>Classes, Assignments, Dates, Tasks</h3>
+              </div>
+              <div class="resource-links compact-links">
+                <button id="addImportantDateFromStudy" class="ghost-btn compact-action" type="button">Add Important Date</button>
+              </div>
+            </div>
+            <div class="school-grid">
+              <article class="card school-card">
+                <h3>Class Schedules</h3>
+                <div id="studyClassList"></div>
+              </article>
+              <article class="card school-card">
+                <h3>Assignments</h3>
+                <div id="studyAssignmentList"></div>
+              </article>
+              <article class="card school-card">
+                <h3>Important Dates</h3>
+                <div id="studyImportantDates"></div>
+              </article>
+              <article class="card school-card">
+                <h3>School Tasks</h3>
+                <div id="studyTaskList"></div>
+              </article>
+            </div>
+          </div>
+
+          <div class="study-zone learning-zone">
+            <div class="study-zone-head">
+              <div>
+                <p class="eyebrow">Self-learning command</p>
+                <h3>Study Blocks, Java, Projects, Full-Stack Growth</h3>
+              </div>
+            </div>
+            <div class="learning-grid">
+              <article class="card self-learning-card">
+                <h3>Study Blocks</h3>
+                <div id="studyBlocks" class="stack"></div>
+              </article>
+              <article class="card lesson-card self-learning-card">
+                <h3>Study System</h3>
+                <div id="studySystem"></div>
+              </article>
+              <article class="card lesson-card self-learning-card">
+                <h3>School Study Notes</h3>
+                <textarea id="schoolStudySpace" rows="8" placeholder="Classes, exams, homework strategy, weak topics..."></textarea>
+              </article>
+              <article class="card lesson-card self-learning-card">
+                <h3>Project Lab</h3>
+                <textarea id="projectStudySpace" rows="8" placeholder="Portfolio ideas, bugs, features, GitHub tasks..."></textarea>
+              </article>
+              <article class="card lesson-card self-learning-card">
+                <h3>Full-Stack Skills</h3>
+                <textarea id="developerStudySpace" rows="8" placeholder="HTML, CSS, JS, React, Node, DB, APIs, auth, deployment..."></textarea>
+              </article>
+            </div>
+          </div>
+
+          <div class="study-zone resource-zone">
+            <div class="study-zone-head">
+              <div>
+                <p class="eyebrow">Developer resources</p>
+                <h3>Learning Sites, Roadmaps, Docs</h3>
+              </div>
+            </div>
+            <div class="study-layout resources-only-layout">
+            <aside class="study-side">
+              <article class="card resource-command">
+                <div class="resource-command-head">
+                  <div>
+                    <p class="eyebrow">Resource command</p>
+                    <h3>Developer Launchpad</h3>
+                  </div>
+                  <button id="addLearningSite" class="ghost-btn compact-action" type="button">Add Site</button>
+                </div>
+                <div class="resource-tabs" role="tablist" aria-label="Study resources">
+                  <button class="resource-tab is-active" data-resource-tab="core" type="button">Core</button>
+                  <button class="resource-tab" data-resource-tab="courses" type="button">Courses</button>
+                  <button class="resource-tab" data-resource-tab="docs" type="button">Docs</button>
+                  <button class="resource-tab" data-resource-tab="custom" type="button">My Sites</button>
+                </div>
+                <div class="resource-panel is-active" data-resource-panel="core">
+                  <button class="hub-link resource-tile primary-resource" data-open-tab="java" type="button"><strong>Complete Java</strong><span>Follow the built-in Java path</span></button>
+                  <a class="resource-tile" href="https://roadmap.sh/full-stack" target="_blank" rel="noreferrer"><strong>Full-Stack Roadmap</strong><span>See the full path</span></a>
+                  <a class="resource-tile" href="https://skills.github.com/" target="_blank" rel="noreferrer"><strong>GitHub Skills</strong><span>Practice Git + publishing</span></a>
+                </div>
+                <div class="resource-panel" data-resource-panel="courses">
+                  <a class="resource-tile" href="https://www.youtube.com/@BroCodez" target="_blank" rel="noreferrer"><strong>Bro Code</strong><span>Beginner-friendly coding videos</span></a>
+                  <a class="resource-tile" href="https://www.freecodecamp.org/learn/" target="_blank" rel="noreferrer"><strong>freeCodeCamp</strong><span>Hands-on full-stack practice</span></a>
+                  <a class="resource-tile" href="https://www.coursera.org/search?query=full%20stack%20developer" target="_blank" rel="noreferrer"><strong>Coursera</strong><span>Structured courses</span></a>
+                  <a class="resource-tile" href="https://www.linkedin.com/learning/search?keywords=full%20stack%20developer" target="_blank" rel="noreferrer"><strong>LinkedIn Learning</strong><span>Professional lessons</span></a>
+                </div>
+                <div class="resource-panel" data-resource-panel="docs">
+                  <a class="resource-tile" href="https://developer.mozilla.org/en-US/" target="_blank" rel="noreferrer"><strong>MDN</strong><span>Web docs and references</span></a>
+                  <a class="resource-tile" href="https://docs.oracle.com/en/java/" target="_blank" rel="noreferrer"><strong>Java Docs</strong><span>Official Java reference</span></a>
+                  <a class="resource-tile" href="https://www.w3schools.com/" target="_blank" rel="noreferrer"><strong>W3Schools</strong><span>Fast syntax examples</span></a>
+                  <a class="resource-tile" href="https://www.theodinproject.com/" target="_blank" rel="noreferrer"><strong>The Odin Project</strong><span>Project-based web path</span></a>
+                </div>
+                <div class="resource-panel" data-resource-panel="custom">
+                  <div id="learningSites"></div>
+                </div>
+              </article>
+            </aside>
+            <div class="study-main">
+              <article class="card lesson-card">
+                <h3>Complete Java Technique</h3>
+                <ol>
+                  <li>Code every lesson by hand, never only watch.</li>
+                  <li>Make one tiny project per topic.</li>
+                  <li>Use active recall: explain concepts without notes.</li>
+                  <li>Refactor old code weekly so you learn clean structure.</li>
+                  <li>Build one final console app before moving to web backends.</li>
+                </ol>
+              </article>
+              <article class="card lesson-card">
+                <h3>Full-Stack Path</h3>
+                <ol>
+                  <li>HTML/CSS layout, forms, responsive design.</li>
+                  <li>JavaScript DOM, async, fetch, modules.</li>
+                  <li>React components, state, routing.</li>
+                  <li>Node/Express APIs, auth, validation.</li>
+                  <li>SQL or MongoDB, deployment, GitHub portfolio.</li>
+                </ol>
+              </article>
+              <article class="card lesson-card">
+                <h3>Project Rule</h3>
+                <p>Every skill should become a visible project. Build small, publish often, then improve the same project instead of always starting over.</p>
+              </article>
+            </div>
+          </div>
+          </div>
+          <div class="grid three motivation-video-strip">
+            <article class="card lesson-card video-suggestion">
+              <h3>Motivational Videos</h3>
+              <a class="resource-tile" href="https://www.youtube.com/results?search_query=study+motivation+discipline" target="_blank" rel="noreferrer"><strong>Study Discipline</strong><span>Use before a hard study block.</span></a>
+            </article>
+            <article class="card lesson-card video-suggestion">
+              <h3>Developer Mindset</h3>
+              <a class="resource-tile" href="https://www.youtube.com/results?search_query=programmer+motivation+coding+discipline" target="_blank" rel="noreferrer"><strong>Coding Motivation</strong><span>Watch, then build one small feature.</span></a>
+            </article>
+            <article class="card lesson-card video-suggestion">
+              <h3>Faith + Focus</h3>
+              <a class="resource-tile" href="https://www.youtube.com/results?search_query=muslim+student+motivation+discipline" target="_blank" rel="noreferrer"><strong>Reset Your Intention</strong><span>Reconnect study with purpose.</span></a>
+            </article>
+          </div>
+        </section>
+
+        <section id="health" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Sleep, training, discipline</p>
+              <h2>Health Hub</h2>
+            </div>
+          </div>
+          <div class="hub-strip">
+            <button class="hub-link primary-btn" data-open-tab="workout" type="button">Workout Coach</button>
+            <button class="hub-link primary-btn" data-open-tab="discipline" type="button">Discipline Streak</button>
+          </div>
+          <div class="grid three">
+            <article class="card lesson-card">
+              <h3>Sleep Tracker</h3>
+              <div class="resource-links">
+                <button id="startSleep" class="primary-btn" type="button">Start Sleep</button>
+                <button id="stopSleep" class="ghost-btn" type="button">Stop Sleep</button>
+              </div>
+              <div id="sleepTimerStatus" class="status-list"></div>
+              <label>Sleep time<input id="sleepTime" type="time"></label>
+              <label>Wake time<input id="wakeTime" type="time"></label>
+              <label>Sleep quality<select id="sleepQuality"><option>Good</option><option>Okay</option><option>Bad</option></select></label>
+              <h3>Sleep Results</h3>
+              <div id="sleepResults" class="status-list"></div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Health Notes</h3>
+              <textarea id="healthNotes" rows="9" placeholder="Energy, meals, water, mood, symptoms, doctor notes..."></textarea>
+            </article>
+            <article class="card lesson-card">
+              <h3>Daily Health Checklist</h3>
+              <div id="healthChecklist"></div>
+              <button id="addHealthChecklist" class="ghost-btn" type="button">Add Health Item</button>
+            </article>
+          </div>
+          <div class="grid three">
+            <article class="card lesson-card">
+              <h3>Fat Stomach Strategy</h3>
+              <ol>
+                <li>Walk 20-30 minutes most days.</li>
+                <li>Lift or do bodyweight training 3-4 times weekly.</li>
+                <li>Prioritize protein and reduce liquid calories.</li>
+                <li>Sleep consistently; poor sleep increases cravings.</li>
+                <li>Track waist, energy, and habits, not only weight.</li>
+              </ol>
+            </article>
+            <article class="card lesson-card">
+              <h3>Simple Meal Rule</h3>
+              <p>Each main meal: protein, vegetables or fruit, water, and one controlled carb portion. Keep it repeatable before making it complicated.</p>
+            </article>
+            <article class="card lesson-card">
+              <h3>Discipline Rule</h3>
+              <p>When urges hit, change location first. Environment beats willpower when your mind is tired.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="workout" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Training and exercise ideas</p>
+              <h2>Workout</h2>
+            </div>
+            <button id="addWorkout" class="primary-btn" type="button">Add Workout</button>
+          </div>
+          <div class="grid two">
+            <article class="card"><h3>Workout Log</h3><div id="workoutLog"></div></article>
+            <article class="card"><h3>Exercise Ideas</h3><div id="exerciseIdeas"></div></article>
+          </div>
+          <div class="grid three lesson-grid">
+            <article class="card lesson-card">
+              <h3>Push-Up Form</h3>
+              <p>Hands under shoulders, body straight, core tight. Lower until chest is close to the floor, then press up without letting hips sag.</p>
+            </article>
+            <article class="card lesson-card">
+              <h3>Squat Form</h3>
+              <p>Feet shoulder-width, chest tall, knees track over toes. Sit back and down, then stand by pushing through the whole foot.</p>
+            </article>
+            <article class="card lesson-card">
+              <h3>Weekly Split</h3>
+              <p>Day 1 strength, day 2 walk/cardio, day 3 strength, day 4 mobility, day 5 full body, day 6 light cardio, day 7 rest.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="reminders" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Things to remember</p>
+              <h2>Reminders</h2>
+            </div>
+            <button id="addReminder" class="primary-btn" type="button">Add Reminder</button>
+          </div>
+          <div id="reminderList" class="grid three"></div>
+        </section>
+
+        <section id="faith" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Prayer and Quran</p>
+              <h2>Faith Hub</h2>
+            </div>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card">
+              <h3>Real Prayer Times</h3>
+              <div class="form-grid">
+                <label>City<input id="prayerCity" type="text" placeholder="New York"></label>
+                <label>Country<input id="prayerCountry" type="text" placeholder="United States"></label>
+              </div>
+              <button id="loadPrayerTimes" class="primary-btn" type="button">Load Prayer Times</button>
+              <div id="realPrayerTimes" class="status-list"></div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Open Trackers</h3>
+              <div class="hub-buttons">
+                <button class="hub-link primary-btn" data-open-tab="prayer" type="button">Prayer Tracker</button>
+                <button class="hub-link ghost-btn" data-open-tab="quran" type="button">Quran Teacher</button>
+              </div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Faith Notes</h3>
+              <textarea id="faithNotes" rows="10" placeholder="Duas, reflections, khutbah notes, goals..."></textarea>
+            </article>
+          </div>
+        </section>
+
+        <section id="life" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Life, tools, files, notes</p>
+              <h2>Life Hub</h2>
+            </div>
+            <button id="addCustomLink" class="primary-btn" type="button">Add URL</button>
+          </div>
+          <div class="life-command-grid">
+            <button class="life-logo-button hub-link" data-open-tab="daily" type="button"><span>24</span><strong>Schedule</strong><small>Plan the day</small></button>
+            <button class="life-logo-button hub-link" data-open-tab="tasks" type="button"><span>OK</span><strong>Tasks</strong><small>Execute work</small></button>
+            <button class="life-logo-button hub-link" data-open-tab="files" type="button"><span>PDF</span><strong>Files</strong><small>Saved library</small></button>
+            <button class="life-logo-button hub-link" data-open-tab="calendar" type="button"><span>Cal</span><strong>Calendar</strong><small>Dates + events</small></button>
+          </div>
+
+          <div class="life-widget-grid">
+            <article class="card life-widget-card life-planning-priority">
+              <div class="life-widget-head">
+                <span class="life-widget-icon">24</span>
+                <div>
+                  <p class="eyebrow">Planning system</p>
+                  <h3>Time + Execution</h3>
+                </div>
+              </div>
+              <p class="life-priority-copy">Start here first. Build the day, choose the next task, set reminders, then execute without guessing.</p>
+              <div class="life-pill-row">
+                <button class="hub-link primary-btn" data-open-tab="daily" type="button">Schedule</button>
+                <button class="hub-link ghost-btn" data-open-tab="tasks" type="button">Tasks</button>
+                <button class="hub-link ghost-btn" data-open-tab="todos" type="button">To-Do</button>
+                <button class="hub-link ghost-btn" data-open-tab="reminders" type="button">Reminders</button>
+              </div>
+            </article>
+
+            <article class="card life-widget-card">
+              <div class="life-widget-head">
+                <span class="life-widget-icon">T</span>
+                <div>
+                  <p class="eyebrow">Timers</p>
+                  <h3>Alerts + Countdowns</h3>
+                </div>
+              </div>
+              <div class="life-pill-row">
+                <button class="hub-link primary-btn" data-open-tab="alarms" type="button">Alarms</button>
+                <button class="hub-link ghost-btn" data-open-tab="countdown" type="button">Countdowns</button>
+              </div>
+            </article>
+
+            <article class="card life-widget-card">
+              <div class="life-widget-head">
+                <span class="life-widget-icon">MAP</span>
+                <div>
+                  <p class="eyebrow">Real-world tools</p>
+                  <h3>Calendar + Maps</h3>
+                </div>
+              </div>
+              <div class="life-pill-row">
+                <button class="hub-link primary-btn" data-open-tab="calendar" type="button">Google Calendar</button>
+                <button class="hub-link ghost-btn" data-open-tab="maps" type="button">Google Maps</button>
+              </div>
+            </article>
+
+            <article class="card life-widget-card">
+              <div class="life-widget-head">
+                <span class="life-widget-icon">LIB</span>
+                <div>
+                  <p class="eyebrow">Personal library</p>
+                  <h3>Files + History</h3>
+                </div>
+              </div>
+              <div class="life-pill-row">
+                <button class="hub-link primary-btn" data-open-tab="files" type="button">Files</button>
+                <button class="hub-link ghost-btn" data-open-tab="history" type="button">History</button>
+              </div>
+            </article>
+
+            <article class="card life-widget-card life-journal-card">
+              <div class="life-widget-head">
+                <span class="life-journal-logo">J</span>
+                <div>
+                  <p class="eyebrow">Journal entry</p>
+                  <h3>Write What Matters</h3>
+                </div>
+              </div>
+              <textarea id="essentialsNotes" rows="9" placeholder="What happened today? What did you learn? What are you grateful for? What needs to change tomorrow?"></textarea>
+              <div class="life-pill-row">
+                <button class="hub-link primary-btn" data-open-tab="motivation" type="button">Motivation</button>
+                <button class="hub-link ghost-btn" data-open-tab="roadmap" type="button">Roadmap</button>
+              </div>
+            </article>
+
+            <article class="card life-widget-card life-links-card">
+              <div class="life-widget-head">
+                <span class="life-widget-icon">URL</span>
+                <div>
+                  <p class="eyebrow">Personal links</p>
+                  <h3>Saved URLs</h3>
+                </div>
+              </div>
+              <div id="customLinks"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="history" class="panel subpage">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Saved copies</p>
+              <h2>History</h2>
+            </div>
+            <button id="clearHistory" class="danger-btn" type="button">Clear History</button>
+          </div>
+          <div id="historyList" class="grid two"></div>
+        </section>
+
+        <section id="roadmap" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Long-term direction</p>
+              <h2>Roadmap</h2>
+            </div>
+            <button id="addRoadmapItem" class="primary-btn" type="button">Add Step</button>
+          </div>
+          <div id="roadmapList" class="roadmap"></div>
+        </section>
+
+        <section id="files" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Local library</p>
+              <h2>Files and PDF Viewer</h2>
+            </div>
+            <label class="upload-btn">Upload Files<input id="fileUpload" type="file" multiple accept=".pdf,.txt,.md,.png,.jpg,.jpeg,.gif,.webp,.doc,.docx,.ppt,.pptx"></label>
+          </div>
+          <p class="muted">Files are saved in this browser. Use View, Download, or Delete anytime. Very large files may exceed browser storage limits.</p>
+          <div class="grid two">
+            <article class="card"><h3>Library</h3><div id="fileList"></div></article>
+            <article class="card file-viewer"><h3>Viewer</h3><div id="fileViewer">Choose a file to preview it here.</div></article>
+          </div>
+        </section>
+
+        <section id="profile" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Personal details</p>
+              <h2>Profile</h2>
+            </div>
+          </div>
+          <article class="card">
+            <p>Profile creation is now inside Settings.</p>
+            <button class="hub-link primary-btn" data-open-tab="settings" type="button">Open Settings</button>
+          </article>
+        </section>
+
+        <section id="settings" class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Make it yours</p>
+              <h2>Options and Color Modes</h2>
+            </div>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Theme</h3>
+              <div class="form-grid">
+                <label>Background color<input id="bgColor" type="color"></label>
+                <label>Accent color<input id="accentColor" type="color"></label>
+                <label>Card color<input id="cardColor" type="color"></label>
+                <label>Text color<input id="textColor" type="color"></label>
+                <label>Menu background<input id="menuBgColor" type="color"></label>
+                <label>Menu card color<input id="menuCardColor" type="color"></label>
+                <label>Menu text color<input id="menuTextColor" type="color"></label>
+                <label>Menu active color<input id="menuActiveColor" type="color"></label>
+              </div>
+              <details class="theme-folder" open>
+                <summary>
+                  <span class="folder-icon" aria-hidden="true"></span>
+                  <span>Theme Folder</span>
+                  <small>31 saved color systems</small>
+                </summary>
+                <div class="mode-buttons">
+                  <button class="ghost-btn preset" data-mode="light" type="button">Light</button>
+                  <button class="ghost-btn preset" data-mode="calm" type="button">Calm</button>
+                  <button class="ghost-btn preset" data-mode="midnight" type="button">Midnight</button>
+                  <button class="ghost-btn preset" data-mode="fresh" type="button">Fresh</button>
+                  <button class="ghost-btn preset" data-mode="ocean" type="button">Ocean</button>
+                  <button class="ghost-btn preset" data-mode="rose" type="button">Rose</button>
+                  <button class="ghost-btn preset" data-mode="sunrise" type="button">Sunrise</button>
+                  <button class="ghost-btn preset" data-mode="forest" type="button">Forest</button>
+                  <button class="ghost-btn preset" data-mode="lavender" type="button">Lavender</button>
+                  <button class="ghost-btn preset" data-mode="obsidian" type="button">Obsidian</button>
+                  <button class="ghost-btn preset" data-mode="cyber" type="button">Cyber</button>
+                  <button class="ghost-btn preset" data-mode="neon" type="button">Neon</button>
+                  <button class="ghost-btn preset" data-mode="matrix" type="button">Matrix</button>
+                  <button class="ghost-btn preset" data-mode="ember" type="button">Ember</button>
+                  <button class="ghost-btn preset" data-mode="void" type="button">Void</button>
+                  <button class="ghost-btn preset" data-mode="arcticDark" type="button">Arctic Dark</button>
+                  <button class="ghost-btn preset" data-mode="plasma" type="button">Plasma</button>
+                  <button class="ghost-btn preset" data-mode="terminal" type="button">Terminal</button>
+                  <button class="ghost-btn preset" data-mode="galaxy" type="button">Galaxy</button>
+                  <button class="ghost-btn preset" data-mode="wildfire" type="button">Wildfire</button>
+                  <button class="ghost-btn preset" data-mode="acid" type="button">Acid</button>
+                  <button class="ghost-btn preset" data-mode="quantum" type="button">Quantum</button>
+                  <button class="ghost-btn preset" data-mode="hologram" type="button">Hologram</button>
+                  <button class="ghost-btn preset" data-mode="eclipse" type="button">Eclipse</button>
+                  <button class="ghost-btn preset" data-mode="chrome" type="button">Chrome</button>
+                  <button class="ghost-btn preset" data-mode="auroraNight" type="button">Aurora Night</button>
+                  <button class="ghost-btn preset" data-mode="royalShadow" type="button">Royal Shadow</button>
+                  <button class="ghost-btn preset" data-mode="bloodMoon" type="button">Blood Moon</button>
+                  <button class="ghost-btn preset" data-mode="deepSea" type="button">Deep Sea</button>
+                  <button class="ghost-btn preset" data-mode="graphiteGold" type="button">Graphite Gold</button>
+                  <button class="ghost-btn preset" data-mode="solarPunk" type="button">Solar Punk</button>
+                </div>
+              </details>
+            </article>
+            <article class="card">
+              <h3>Data</h3>
+              <button id="exportData" class="primary-btn" type="button">Export JSON</button>
+              <label class="upload-btn secondary-upload">Import JSON<input id="importData" type="file" accept="application/json"></label>
+              <button id="resetAll" class="danger-btn" type="button">Reset Everything</button>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card">
+              <h3>GitHub Upload</h3>
+              <p class="muted">Upload website files to GitHub from the GitHub Upload tool.</p>
+              <div class="resource-links">
+                <button class="hub-link primary-btn" data-open-tab="github" type="button">Open GitHub Upload</button>
+                <a class="ghost-btn" href="github-upload.html" target="_blank" rel="noreferrer">Standalone Uploader</a>
+              </div>
+            </article>
+            <article class="card lesson-card">
+              <h3>Settings Tools</h3>
+              <p>Keep publishing, profile, colors, menu controls, imports, and exports here so Life Hub stays focused on daily personal use.</p>
+              <div class="resource-links">
+                <button id="lifeRoadmapButton" class="power-life-settings-btn" type="button" aria-label="Open life roadmap">
+                  <span>Roadmap</span>
+                  <strong>Power Life</strong>
+                </button>
+              </div>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card lesson-card">
+              <h3>GPT Assistant API</h3>
+              <p class="muted">Keep your OpenAI key on the backend. Put your deployed endpoint here, or use /api/assistant when hosted on Vercel.</p>
+              <label>Assistant API URL<input id="assistantApiUrl" type="text" placeholder="/api/assistant"></label>
+            </article>
+            <article class="card lesson-card">
+              <h3>Automation Examples</h3>
+              <ul>
+                <li>Add Java class Monday and Wednesday from 09:00 to 10:30 until 2026-08-20.</li>
+                <li>Create a study plan tonight from 7 PM to 10 PM for Java and assignments.</li>
+                <li>Add my phone bill for 344.49 due on 28 category Phone.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Profile Creation</h3>
+              <div class="form-grid profile-grid">
+                <label>Name<input id="profileName" type="text"></label>
+                <label>Phone<input id="profilePhone" type="tel"></label>
+                <label>Email<input id="profileEmail" type="email"></label>
+                <label>School<input id="profileSchool" type="text"></label>
+                <label>Major / Grade<input id="profileGrade" type="text"></label>
+                <label>City<input id="profileCity" type="text"></label>
+                <label>Emergency contact<input id="profileEmergency" type="text"></label>
+                <label>Big goal<input id="profileGoal" type="text"></label>
+              </div>
+              <label>About me<textarea id="profileBio" rows="7"></textarea></label>
+            </article>
+            <article class="card lesson-card">
+              <h3>Info Storage</h3>
+              <p>Your profile info saves locally in this browser and reflects on Home where relevant.</p>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Command Menu Text</h3>
+              <label>Eyebrow<input id="menuEyebrowInput" type="text" placeholder="Command menu"></label>
+              <label>Title<input id="menuTitleInput" type="text" placeholder="Where do you want to go?"></label>
+              <label>Button text<input id="menuButtonInput" type="text" placeholder="Command Menu"></label>
+            </article>
+            <article class="card">
+              <h3>Command Menu Pages</h3>
+              <div id="menuPageSettings"></div>
+              <button id="resetMenuSettings" class="ghost-btn" type="button">Reset Menu</button>
+            </article>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Front Page Cards</h3>
+              <div id="homeCardSettings"></div>
+              <button id="resetHomeCards" class="ghost-btn" type="button">Reset Front Page</button>
+            </article>
+            <article class="card lesson-card">
+              <h3>Front Page Notes</h3>
+              <p>Click the Notes card on Home to open the Schedule notes editor. Use this panel to rename, hide, or reorder the Home cards.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+      <span id="saveStatus" class="save-status-toast muted" hidden>Opens print so you can save this page as a PDF.</span>
+      <button id="scrollTopButton" class="scroll-top-btn" type="button" aria-label="Back to top">Top</button>
+      <div id="lifeRoadmapModal" class="life-roadmap-modal" hidden>
+        <div class="life-roadmap-panel" role="dialog" aria-modal="true" aria-labelledby="lifeRoadmapTitle">
+          <button id="closeLifeRoadmap" class="icon-btn detail-close" type="button" aria-label="Close">x</button>
+          <p class="eyebrow">Forever roadmap</p>
+          <h2 id="lifeRoadmapTitle">Successful, happy, respected life.</h2>
+          <p class="large-note">Your target is not a perfect life. Your target is a repeatable system: faith, health, money, study, skill, family, discipline, and service.</p>
+          <button id="addLifeRoadmapItem" class="ghost-btn compact-action" type="button">Add Phase</button>
+          <div id="lifeRoadmapList" class="life-roadmap-list"></div>
+        </div>
+      </div>
+      <div id="detailModal" class="detail-modal" hidden>
+        <div class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+          <button id="closeDetailModal" class="icon-btn detail-close" type="button" aria-label="Close">x</button>
+          <div id="analogClockView" class="analog-clock-view" hidden>
+            <p class="eyebrow">Live analog clock</p>
+            <h2 id="analogTimeTitle">Time</h2>
+            <div class="analog-clock">
+              <span class="clock-number n12">12</span>
+              <span class="clock-number n3">3</span>
+              <span class="clock-number n6">6</span>
+              <span class="clock-number n9">9</span>
+              <i class="clock-hand hour-hand"></i>
+              <i class="clock-hand minute-hand"></i>
+              <i class="clock-hand second-hand"></i>
+              <b></b>
+            </div>
+            <p id="analogDate" class="large-note"></p>
+          </div>
+          <div id="signalDetailView" class="signal-detail-view" hidden>
+            <p class="eyebrow" id="detailEyebrow">Signal</p>
+            <h2 id="detailTitle">Details</h2>
+            <div id="detailItems" class="status-list"></div>
+            <div class="resource-links">
+              <button id="detailRefresh" class="ghost-btn" type="button">Refresh</button>
+              <button id="detailMore" class="primary-btn" type="button">More Updates</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <template id="editableItemTemplate">
+      <div class="editable-item">
+        <input type="checkbox">
+        <input type="text">
+        <button class="icon-btn" type="button" aria-label="Delete">x</button>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
